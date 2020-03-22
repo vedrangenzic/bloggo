@@ -1,0 +1,43 @@
+﻿@model PostViewModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+@if (Model.Posts.Count() == 0)
+{
+    <h1 class="display-4 text-center text-white mt-5">No posts submitted.</h1>
+}
+else
+{
+
+    <h1 class="display-4 text-center text-white">Posts</h1>
+
+    <div class="front-page-flex-parent">
+
+        @foreach (var post in Model.Posts)
+        {
+            <a class="text-decoration-none" href="@Url.Action("PostPage", "BlogPost", new { id = post.Id})">
+
+                <div class="front-page-flex-child">
+                    <ul class="list-unstyled">
+                        <li><h1>@post.Title</h1></li>
+                        <li><h3 class="text-muted">Subject: @post.Subject</h3></li>
+                    </ul>
+                    <div class="posted-by">
+                        <span class="blockquote-footer">Posted by @post.Username</span>
+                    </div>
+                    @if (User.IsInRole("Administrator"))
+                    {
+                        <form class="dlt-btn" asp-action="DeletePost" asp-route-postId="@post.Id">
+                            <button type="submit" class="admin-delete-btn">
+                                Delete
+                            </button>
+                        </form>
+
+                    }
+                </div>
+            </a>
+
+        }
+    </div>
+}

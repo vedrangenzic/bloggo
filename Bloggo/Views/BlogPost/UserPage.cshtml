@@ -1,0 +1,36 @@
+﻿@model PostViewModel
+
+    @if (Model.Posts.Count() == 0)
+    {
+
+        <div style="background:rgba(0, 0, 0, 0.65)" class="container text-white mt-2 mb-2 p-3">
+
+            <h1 class="text-center">You didn't submit any posts yet.</h1>
+
+        </div>
+
+    }
+    else
+    {
+
+        @foreach (var post in Model.Posts)
+        {
+            <div class="user-post-container">
+                <div class="p-2 border-bottom">
+                    <h1>Title: @post.Title</h1>
+
+                    <h3>Subject: @post.Subject</h3>
+                </div>
+                <div class="post-value-container">@Html.Raw(post.Value)</div>
+            
+                <div class="position-absolute fixed-bottom col-auto">
+                    <form asp-action="DeletePost" asp-route-postId="@post.Id">
+                        <button id="deleteBtn" type="submit" class="btn btn-sm btn-dark d-md-inline-block">
+                            Delete
+                        </button>
+                    </form>
+                </div>
+            </div>
+        }
+    }
+  

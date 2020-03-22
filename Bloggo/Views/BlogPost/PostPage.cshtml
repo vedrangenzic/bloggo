@@ -1,0 +1,16 @@
+﻿@model Post
+@{
+    ViewData["Title"] = "PostPage";
+}
+
+<div class="single-post">
+    <div class="single-post-title">@Html.Raw(Model.Title)</div>
+    <div class="single-post-content">
+        <p>
+            @Html.Raw(Model.Value)
+        </p>
+    </div>
+        <div class="posted-by">
+            <span class="blockquote-footer">Posted by @Model.Username</span>
+        </div>
+</div>

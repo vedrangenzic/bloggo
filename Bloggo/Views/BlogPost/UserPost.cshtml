@@ -1,0 +1,8 @@
+﻿
+@{
+    ViewData["Title"] = "UserPost";
+}
+
+<div class="panel-footer add-post-form">
+    @await Html.PartialAsync("AddPostPartial", new Post())
+</div>

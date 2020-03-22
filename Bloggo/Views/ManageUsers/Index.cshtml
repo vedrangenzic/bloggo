@@ -1,0 +1,45 @@
+﻿@model ManageUsersViewModel
+@{
+    ViewData["Title"] = "Index";
+}
+
+    <div class="text-white">
+        <h3>Administrators</h3>
+
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Email</td>
+                </tr>
+            </thead>
+
+            @foreach (var user in Model.Administrators)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </table>
+
+        <h3>Everyone</h3>
+
+        <table class="table text-white">
+            <thead>
+                <tr>
+                    <td>Id</td>
+                    <td>Email</td>
+                </tr>
+            </thead>
+
+            @foreach (var user in Model.Everyone)
+            {
+                <tr>
+                    <td>@user.Id</td>
+                    <td>@user.Email</td>
+                </tr>
+            }
+        </table>
+
+    </div>

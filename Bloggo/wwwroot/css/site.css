@@ -1,0 +1,207 @@
+﻿* {
+    font-family: 'Montserrat', 'Open Sans';
+}
+
+a {
+    text-decoration: none;
+    color: white;
+}
+
+.navbar {
+    background-color: transparent;
+    top: 0;
+    transition: all .5s ease-in-out;
+}
+
+a.navbar-brand {
+    white-space: normal;
+    text-align: center;
+    word-break: break-all;
+}
+
+.sticky-nav {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    border-top: 0;
+    background-color: #17141d !important;
+}
+
+html {
+    font-size: 14px;
+    height: 100%;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.box-shadow {
+    box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+button.accept-policy {
+    font-size: 1rem;
+    line-height: inherit;
+}
+
+body {
+    position: relative;
+    overflow: auto;
+    z-index: 1;
+    min-height: 100%;
+    padding-bottom: 60px;
+    background-color: #100E17 !important;
+    align-items: center;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+    white-space: nowrap;
+    height: 60px;
+    line-height: 60px;
+    background-color: transparent;
+}
+
+register-login {
+    min-width: 300px;
+}
+
+.loginForm {
+    background: #17141d;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px #070509;
+    width: 100%;
+}
+
+.post-form-wrapper {
+    width: 65%;
+}
+
+.content {
+    display: none;
+}
+
+.fill-div {
+    display: block;
+    height: 100%;
+    width: 100%;
+    text-decoration: none;
+    color: white;
+}
+
+.front-page-flex-parent {
+    position: relative;
+    padding-bottom: 60px;
+    display: flex;
+    min-height: 300px;
+    height: 100%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    width: 100%;
+    justify-content: center;
+}
+
+@media (max-width: 530px) {
+    .front-page-flex-child {
+        width: 100%;
+    }
+}
+
+.front-page-flex-child {
+    position: relative;
+    border-radius: 16px;
+    box-shadow: 0 4px 10px #070509;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    background-color: #17141d;
+    width: 500px;
+    height: 300px;
+    margin: 5px;
+}
+    .front-page-flex-child:hover {
+        background-color: #231e2f;
+        transition: all 200ms ease-in-out;
+    }
+
+.posted-by {
+    position: absolute;
+    bottom: 0px;
+    left: 15px;
+}
+
+.dlt-btn {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+}
+
+.admin-delete-btn {
+    background: #37266c;
+    border-radius: 16px;
+    border: 0;
+}
+
+    .admin-delete-btn:hover {
+        color: white;
+    }
+
+.single-post {
+    position: relative;
+    margin-top: 50px;
+    width: 100%;
+    height: 550px;
+    background-color: #979797;
+    border-radius: 16px;
+    text-align: center;
+}
+
+.single-post-content {
+    position: relative;
+    padding: 35px;
+    text-align: justify;
+    width: 100%;
+    overflow-wrap: break-word;
+}
+
+.single-post-title {
+    border-bottom: 1px black solid;
+    border-radius: 50px;
+}
+
+.user-post-container {
+    color: white;
+    padding: 0 10px 35px 10px;
+    margin: 20px;
+    position: relative;
+    width: 1140px;
+    height: 100%;
+    background-color: #17141d;
+}
+
+@media (max-width: 1400px) {
+    .user-post-container {
+        width: 100%;
+    }
+}
+
+.post-value-container {
+    position: relative;
+    width: 100%; 
+    height: 55%;
+    overflow-wrap: break-word;
+    padding: 10px;
+}
+.post-value-container > * {
+    padding: 12px;
+    margin: 0 auto;
+
+}
