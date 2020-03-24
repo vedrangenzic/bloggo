@@ -2,14 +2,14 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using Bloggo.Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Bloggo.Services;
 using Bloggo.Models;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.Extensions.Hosting;
 
 namespace Bloggo
 {
@@ -35,25 +35,30 @@ namespace Bloggo
                     Configuration.GetConnectionString("DefaultConnection")));
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
-               .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders()
-                .AddDefaultUI();
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+             .AddDefaultTokenProviders()
+             .AddDefaultUI();
 
             services.PostConfigure<CookieAuthenticationOptions>(IdentityConstants.ApplicationScheme,
                 opt =>
                 {
                     //configure your other properties
                     opt.LoginPath = "/Identity/Account/Login";
+                    opt.LogoutPath = new PathString("/Index");
                 });
 
 
 
             services.AddScoped<IPostService, PostService>();
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddControllersWithViews()
+                 .AddRazorRuntimeCompilation();
+            services.AddRazorPages();
+            services.AddHealthChecks();
+
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
 
             if (env.IsDevelopment())
@@ -63,21 +68,23 @@ namespace Bloggo
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Index/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            //app.UseCookiePolicy();
+
+            app.UseRouting();
 
             app.UseAuthentication();
+            app.UseAuthorization();
 
-            app.UseMvc(routes =>
+            app.UseEndpoints(endpoints =>
             {
-                routes.MapRoute(
-                    name: "default",
-                    template: "{controller=BlogPost}/{action=Index}/{id?}");
+                endpoints.MapControllerRoute("default", "{controller=BlogPost}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
+                endpoints.MapHealthChecks("/health" );
             });
         }
     }
