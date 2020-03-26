@@ -1,5 +1,7 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace Bloggo.Data.Migrations
 {
@@ -32,7 +34,8 @@ namespace Bloggo.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("SqlServer:Identity", "1, 1") 
+                        .Annotation("Sqlite:Autoincrement", true),
                     CommentContent = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     PostId = table.Column<int>(nullable: true)
@@ -53,7 +56,11 @@ namespace Bloggo.Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true)
+                         // Add for MSSQL
+                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn)
+                         // Add for PostgreSQL
+                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     CommentContent = table.Column<string>(nullable: true),
                     DateCreated = table.Column<DateTime>(nullable: false),
                     MainCommentId = table.Column<int>(nullable: false)

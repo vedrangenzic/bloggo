@@ -10,6 +10,7 @@ using Bloggo.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace Bloggo
 {
@@ -30,9 +31,34 @@ namespace Bloggo
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+            // Check Provider and get ConnectionString
+            if (Configuration["Provider"] == "SQLite")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlite(Configuration.GetConnectionString("SQLite")));
+            }
+            else if (Configuration["Provider"] == "MySQL")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseMySql(Configuration.GetConnectionString("MySQL")));
+            }
+            else if (Configuration["Provider"] == "MSSQL")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            }
+            else if (Configuration["Provider"] == "PostgreSQL")
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
+            }
+            // Exception
+            else
+            { throw new ArgumentException("Not a valid database type"); }
+
+            //services.AddDbContext<ApplicationDbContext>(options =>
+            //    options.UseSqlServer(
+            //        Configuration.GetConnectionString("DefaultConnection")));
            
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
