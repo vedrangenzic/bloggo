@@ -24,7 +24,7 @@ else
                         <li><h3 class="text-muted">Subject: @post.Subject</h3></li>
                     </ul>
                     <div class="posted-by">
-                        <span class="blockquote-footer">Posted by @post.Username</span>
+                        <span class="blockquote-footer">Posted by @post.Username on @post.DateCreated</span>
                     </div>
                     @if (User.IsInRole("Administrator"))
                     {

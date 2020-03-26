@@ -1,4 +1,5 @@
 ﻿using Bloggo.Models;
+using Bloggo.Models.Comments;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace Bloggo.Services
         Task<bool> DeletePostAsync(Post post);
         Task<bool> AddPostAsync(Post newPost, ApplicationUser currentUser);
         Task<Post[]> GetUserPostsAsync(ApplicationUser user);
+        void UpdatePost(Post post);
+        Task<bool> SaveChangesAsync();
     }
 }

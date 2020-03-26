@@ -21,7 +21,8 @@ namespace Bloggo.Services
         public async Task<Post[]> GetPostsAsync()
         {
 
-            var posts = await _context.Posts
+            var posts = await _context.Posts                
+                .AsNoTracking()
                 .ToArrayAsync();
 
             return posts;
@@ -30,7 +31,11 @@ namespace Bloggo.Services
         public Post GetPostById(int postId)
         {
 
-            var post = _context.Posts.FirstOrDefault(p => p.Id == postId);
+            var post = _context.Posts
+                .Include(p => p.MainComments)
+                    .ThenInclude(p => p.SubComments)
+                .AsNoTracking()
+                .FirstOrDefault(p => p.Id == postId);
 
             return post;
 
@@ -50,6 +55,7 @@ namespace Bloggo.Services
 
             newPost.UserId = user.Id;
             newPost.Username = user.UserName;
+            newPost.DateCreated = DateTime.Now;
 
             _context.Posts.Add(newPost);
 
@@ -61,11 +67,24 @@ namespace Bloggo.Services
         {
             
             var posts = await _context.Posts
+                .AsNoTracking()
                 .Where(u => u.UserId == user.Id)
                 .ToArrayAsync();
 
             return posts;
 
+        }
+        public async Task<bool> SaveChangesAsync()
+        {
+            if (await _context.SaveChangesAsync() > 0)
+            {
+                return true;
+            }
+            return false;
+        }
+        public void UpdatePost(Post post)
+        {
+            _context.Posts.Update(post);
         }
     }
 }

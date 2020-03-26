@@ -33,6 +33,7 @@ namespace Bloggo
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+           
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -44,12 +45,12 @@ namespace Bloggo
                 {
                     //configure your other properties
                     opt.LoginPath = "/Identity/Account/Login";
-                    opt.LogoutPath = new PathString("/Index");
                 });
 
 
 
             services.AddScoped<IPostService, PostService>();
+            services.AddScoped<ICommentService, CommentService>();
 
             services.AddControllersWithViews()
                  .AddRazorRuntimeCompilation();

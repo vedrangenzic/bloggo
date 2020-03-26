@@ -10,7 +10,33 @@
             @Html.Raw(Model.Value)
         </p>
     </div>
-        <div class="posted-by">
-            <span class="blockquote-footer">Posted by @Model.Username</span>
+    <div class="posted-by">
+        <span class="blockquote-footer">Posted by @Model.Username</span>
+    </div>
+    <div class="comment-section">
+        @{
+            await Html.RenderPartialAsync("_CommentPartial", new CommentViewModel { PostId = Model.Id });
+        }
+    </div>
+    @foreach (var c in Model.MainComments)
+    {
+        <p>
+            @c.CommentContent
+        </p>
+        <span class="blockquote">@c.DateCreated</span>
+        <div>
+            @{
+                await Html.RenderPartialAsync("_CommentPartial", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
+            }
+            @foreach (var sc in c.SubComments)
+            {
+                <p>
+                    @sc.CommentContent
+                </p>
+                <span class="blockquote">@sc.DateCreated</span>
+            }
         </div>
+    }
+
+
 </div>
