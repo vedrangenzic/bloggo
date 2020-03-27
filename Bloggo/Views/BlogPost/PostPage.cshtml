@@ -13,30 +13,47 @@
     <div class="posted-by">
         <span class="blockquote-footer">Posted by @Model.Username</span>
     </div>
-    <div class="comment-section">
-        @{
-            await Html.RenderPartialAsync("_CommentPartial", new CommentViewModel { PostId = Model.Id });
-        }
-    </div>
-    @foreach (var c in Model.MainComments)
-    {
-        <p>
-            @c.CommentContent
-        </p>
-        <span class="blockquote">@c.DateCreated</span>
-        <div>
-            @{
-                await Html.RenderPartialAsync("_CommentPartial", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
-            }
-            @foreach (var sc in c.SubComments)
-            {
-                <p>
-                    @sc.CommentContent
-                </p>
-                <span class="blockquote">@sc.DateCreated</span>
-            }
-        </div>
-    }
 
 
 </div>
+
+<button class="form-control btn-dark w-100" id="comments">Comments</button>
+<div class="hide-show">
+    <div class="comment-section">
+
+        @{
+            await Html.RenderPartialAsync("~/Views/Comment/_CommentPartial.cshtml", new CommentViewModel { PostId = Model.Id });
+        }
+
+        @foreach (var c in Model.MainComments)
+        {
+            <div class="comment-container">
+                <div class="main-comment">
+                    <p>
+                        @c.CommentContent
+                    </p>
+
+                    <span class="blockquote-footer w-35 float-sm-right"><small>@c.DateCreated by @Model.Username</small></span>
+                </div>
+
+
+                @foreach (var sc in c.SubComments)
+                {
+                    <div class="sub-comment">
+                        <p>
+                            @sc.CommentContent
+                        </p>
+                        <span class="blockquote-footer w-35 float-sm-right"><small>@sc.DateCreated by @Model.Username</small></span>
+                    </div>
+                }
+
+                @{
+                    await Html.RenderPartialAsync("~/Views/Comment/_CommentPartial.cshtml", new CommentViewModel { PostId = Model.Id, MainCommentId = c.Id });
+                }
+
+            </div>
+
+
+        }
+    </div>
+</div>  

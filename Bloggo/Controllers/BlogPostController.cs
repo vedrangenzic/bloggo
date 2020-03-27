@@ -97,7 +97,7 @@ namespace Bloggo.Controllers
         [HttpPost]
         public async Task<IActionResult> DeletePost(int postId)
         {
-
+            
             var post = _postService.GetPostById(postId);
             var successful = await _postService.DeletePostAsync(post);
 

@@ -1,0 +1,21 @@
+﻿@model CommentViewModel
+
+
+@if (Model.MainCommentId == 0)
+{
+    <form method="POST" asp-controller="Comment" asp-action="Comment">
+        <input asp-for="PostId" type="hidden">
+        <input asp-for="MainCommentId" type="hidden">
+        <input placeholder="Start typing..." class="form-control w-100 mt-2" asp-for="CommentContent">
+        <button class="form-control btn-dark w-100 mb-2 mt-1" type="submit">Comment.</button>
+    </form>
+}
+else
+{
+    <form method="POST" asp-controller="Comment" asp-action="Comment">
+        <input asp-for="PostId" type="hidden">
+        <input asp-for="MainCommentId" type="hidden">
+        <input placeholder="Start typing..." class="form-control w-100" asp-for="CommentContent">
+        <button class="form-control btn-dark w-100" type="submit">Reply.</button>
+    </form>
+}

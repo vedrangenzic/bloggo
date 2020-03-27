@@ -32,9 +32,9 @@ namespace Bloggo.Services
         {
 
             var post = _context.Posts
+                .AsNoTracking()
                 .Include(p => p.MainComments)
                     .ThenInclude(p => p.SubComments)
-                .AsNoTracking()
                 .FirstOrDefault(p => p.Id == postId);
 
             return post;

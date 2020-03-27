@@ -31,35 +31,11 @@ namespace Bloggo
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            // Check Provider and get ConnectionString
-            if (Configuration["Provider"] == "SQLite")
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlite(Configuration.GetConnectionString("SQLite")));
-            }
-            else if (Configuration["Provider"] == "MySQL")
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseMySql(Configuration.GetConnectionString("MySQL")));
-            }
-            else if (Configuration["Provider"] == "MSSQL")
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
-            }
-            else if (Configuration["Provider"] == "PostgreSQL")
-            {
-                services.AddDbContext<ApplicationDbContext>(options =>
-                    options.UseNpgsql(Configuration.GetConnectionString("PostgreSQL")));
-            }
-            // Exception
-            else
-            { throw new ArgumentException("Not a valid database type"); }
 
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //    options.UseSqlServer(
-            //        Configuration.GetConnectionString("DefaultConnection")));
-           
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
 
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<ApplicationDbContext>()
@@ -111,7 +87,7 @@ namespace Bloggo
             {
                 endpoints.MapControllerRoute("default", "{controller=BlogPost}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
-                endpoints.MapHealthChecks("/health" );
+                endpoints.MapHealthChecks("/health");
             });
         }
     }

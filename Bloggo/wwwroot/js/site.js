@@ -1,5 +1,14 @@
 ﻿$(document).ready(() => {
 
+    $("#comments").click(function () {
+        
+        if (!($(".hide-show").css('display') == 'none')) {
+            $(".hide-show").slideUp("slow");
+        } else
+        {
+            $(".hide-show").slideDown("slow");
+        }
+    });
 
     $('#deleteBtn, .admin-delete-btn').click(() => {
         if (!confirm('Are you sure?'))
