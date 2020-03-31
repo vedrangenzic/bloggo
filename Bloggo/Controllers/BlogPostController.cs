@@ -20,7 +20,7 @@ namespace Bloggo.Controllers
 
         public BlogPostController(IPostService postService, UserManager<ApplicationUser> userManager)
         {
-            
+
             _postService = postService;
             _userManager = userManager;
         }
@@ -62,6 +62,7 @@ namespace Bloggo.Controllers
         }
 
         [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> AddPost(Post newPost)
         {
 
@@ -87,17 +88,38 @@ namespace Bloggo.Controllers
         }
         public IActionResult PostPage(int id)
         {
-          
+
 
             var post = _postService.GetPostById(id);
-            
+
+
+            return View(post);
+        }
+        public IActionResult Edit(int postId)
+        {
+            var post = _postService.GetPostById(postId);
 
             return View(post);
         }
         [HttpPost]
+        public IActionResult EditPost(Post post)
+        {
+            var editedPost = _postService.GetPostById(post.Id);
+
+            editedPost.Title = post.Title;
+            editedPost.Value = post.Value;
+            editedPost.Subject = post.Subject;
+
+
+            _postService.UpdatePost(editedPost);
+
+            return RedirectToAction("Index");
+
+        }
+        [HttpPost]
         public async Task<IActionResult> DeletePost(int postId)
         {
-            
+
             var post = _postService.GetPostById(postId);
             var successful = await _postService.DeletePostAsync(post);
 

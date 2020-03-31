@@ -14,7 +14,7 @@ namespace Bloggo.Services
         Task<bool> DeletePostAsync(Post post);
         Task<bool> AddPostAsync(Post newPost, ApplicationUser currentUser);
         Task<Post[]> GetUserPostsAsync(ApplicationUser user);
-        void UpdatePost(Post post);
+        bool UpdatePost(Post post);
         Task<bool> SaveChangesAsync();
     }
 }

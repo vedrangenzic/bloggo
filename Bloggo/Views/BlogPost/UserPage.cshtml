@@ -17,7 +17,7 @@
         {
             <div class="user-post-container">
                 <div class="p-2 border-bottom">
-                    <h1>Title: @post.Title</h1>
+                    <h1>Title: @post.Title  <a class="text-decoration-none bg-light text-dark border float-right pr-3" asp-controller="BlogPost" asp-action="Edit" asp-route-postId="@post.Id">Edit</a></h1>
 
                     <h3>Subject: @post.Subject</h3>
                 </div>

@@ -1,10 +1,20 @@
 ﻿@model Post
+@using Microsoft.AspNetCore.Identity
+@inject UserManager<ApplicationUser> UserManager
 @{
     ViewData["Title"] = "PostPage";
+
+    var currentUserId = UserManager.GetUserId(User);
 }
 
 <div class="single-post">
-    <div class="single-post-title">@Html.Raw(Model.Title)</div>
+    <div class="single-post-title pl-4">
+        @Html.Raw(Model.Title)
+        @if (Model.UserId == currentUserId) 
+        { 
+            <a class="text-decoration-none text-dark float-right pr-3" asp-controller="BlogPost" asp-action="Edit" asp-route-postId="@Model.Id">Edit</a>
+        }
+    </div>
     <div class="single-post-content">
         <p>
             @Html.Raw(Model.Value)

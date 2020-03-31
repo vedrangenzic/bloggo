@@ -82,9 +82,14 @@ namespace Bloggo.Services
             }
             return false;
         }
-        public void UpdatePost(Post post)
+        public bool UpdatePost(Post post)
         {
             _context.Posts.Update(post);
+
+            var saveResult =  _context.SaveChanges();
+
+            return saveResult == 1;
+
         }
     }
 }

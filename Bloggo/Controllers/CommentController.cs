@@ -23,6 +23,8 @@ namespace Bloggo.Controllers
             _postService = postService;
 
         }
+        [ValidateAntiForgeryToken]
+        [HttpPost]
         public async Task<IActionResult> Comment(CommentViewModel commentViewModel)
         {
             if (!ModelState.IsValid)
@@ -44,7 +46,7 @@ namespace Bloggo.Controllers
 
                 }
                 );
-                _postService.UpdatePost(post);
+                  _postService.UpdatePost(post);
 
             }
             else
